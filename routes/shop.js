@@ -6,6 +6,7 @@ router.get('/' , shop.index);
 
 router.get('/menu' , shop.menu);
 router.get('/:id' , shop.getShopWithMenu);
+router.post('/' , shop.insert);
 
 
 module.exports = router;
