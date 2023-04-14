@@ -4,6 +4,9 @@ const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const mongoose = require('mongoose');
 
+//สร้าง middleware จัดการ error
+const errorHandler = require('./middleware/errorHandler');
+
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 const companyRouter  = require('./routes/company');
@@ -21,9 +24,13 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
-app.use('/users', usersRouter);
+app.use('/user', usersRouter);
 app.use('/company',companyRouter);
 app.use('/staff',staffRouter);
 app.use('/shop', shopRouter);
+
+
+
+app.use(errorHandler);
 
 module.exports = app;
