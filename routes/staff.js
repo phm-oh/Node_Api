@@ -1,12 +1,13 @@
 const express = require('express');
 const router = express.Router();
 const staff = require('../controllers/staffController');
+const passportJWT = require('../middleware/passportJWT');
 
 
 
 /* GET users listing. */
 /** http://localhost:3000/staff/ */
-router.get('/',staff.index);
+router.get('/',[passportJWT.isLogin],staff.index);
 
 
 /* GET by id*/

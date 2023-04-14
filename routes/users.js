@@ -1,16 +1,17 @@
 const express = require('express');
 const router = express.Router();
 const userController = require('../controllers/userController');
+const passportJWT = require('../middleware/passportJWT');
 
 const { body } = require('express-validator');
 
 
 
 /* GET users listing. */
-/** http://localhost:3000/users */
+/** http://localhost:3000/user */
 router.get('/',userController.index );
 
-/** http://localhost:3000/users/login */
+/** http://localhost:3000/user/login */
 router.post('/login', userController.login);
 
 /** http://localhost:3000/users/login */
@@ -20,6 +21,10 @@ router.post('/register', [
     body('password').not().isEmpty().withMessage('กรุณาป้อนรหัสผ่าน').isLength({min:3}).withMessage('รหัสผ่านต้อง 3 ตัวอักษรขึ้นไป'),
 
 ],userController.register);
+
+
+/** http://localhost:3000/user/me */
+router.get('/me',[[passportJWT.isLogin]],userController.me );
 
 
 
