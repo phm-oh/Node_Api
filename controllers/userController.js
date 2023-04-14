@@ -1,4 +1,5 @@
 const User = require('../models/user');
+const crypt = require('../middleware/encryptpassword');
 
 
 exports.index = (req, res, next)=> {
@@ -32,7 +33,8 @@ exports.register = async (req,res,next) =>{
       let user = new User();
       user.name = name;
       user.email = email;
-      user.password = password;
+      // user.password = await crypt.encrypt(password) ;
+      user.password = await user.encryptPassword(password);
 
       await user.save();
 
